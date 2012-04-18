@@ -260,7 +260,7 @@ Strophe.Bosh.prototype = {
         this.hold = hold || this.hold;
         this.window = wind || this.window;
 
-        this.changeConnectStatus(Strophe.Status.ATTACHED, null);
+        this._changeConnectStatus(Strophe.Status.ATTACHED, null);
     },
 	
 	/** PrivateFunction: _buildBody
@@ -365,7 +365,7 @@ Strophe.Bosh.prototype = {
             } catch (e2) {
                 Strophe.error("XHR open failed.");
                 if (!this.connected) {
-                    this.connection.changeConnectStatus(Strophe.Status.CONNFAIL, "bad-service");
+                    this.connection._changeConnectStatus(Strophe.Status.CONNFAIL, "bad-service");
                 }
                 this.connection._doDisconnect();
                 return;
@@ -448,9 +448,9 @@ Strophe.Bosh.prototype = {
                 if (cond == "remote-stream-error" && conflict.length > 0) {
                     cond = "conflict";
                 }
-                this.connection.changeConnectStatus(Strophe.Status.CONNFAIL, cond);
+                this.connection._changeConnectStatus(Strophe.Status.CONNFAIL, cond);
             } else {
-                this.connection.changeConnectStatus(Strophe.Status.CONNFAIL, "unknown");
+                this.connection._changeConnectStatus(Strophe.Status.CONNFAIL, "unknown");
             }
             return;
         }
